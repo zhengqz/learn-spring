@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- bean definitions here -->
+
+	<!-- 配置handler -->
+	<bean id="itemsController1" name="/queryItems.do" class="com.hz.ssm.controller.ItemsController1" />
+	<bean id="itemsController2"  class="com.hz.ssm.controller.ItemsController2" />
+	<bean id="itemsController3"  class="com.hz.ssm.controller.ItemsController3" />
+	
+	<!-- 处理器映射器 将bean的bean的name作为url查找，需要在配置Handler时制定beanname(url) -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+		
+	<!-- 简单URL配置 映射器  HandlerMapping接口-->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	    <property name="mappings">
+	        <props>
+	             <prop key="/queryItems1.do">itemsController1</prop>
+	             <prop key="/queryItems2.do">itemsController2</prop>
+	             <prop key="/queryItems3.do">itemsController3</prop>
+	        </props>
+	    </property>
+	</bean>
+	
+	<!-- 注解映射器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<!-- 注解适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
+	
+	<!-- 使用mvc：annotation-driver 代替上边注解映射器和注解适配器
+	mvc:annotation-driver默认加载很多的参数绑定方法，比如json转换解析器-->
+	<!--  <mvc: annotation-driver></mvc:annotation-driver> -->
+	
+	<!-- 处理器适配器 实现HandlerAdapter接口 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"  />
+	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
+
+	<!-- 视图解析器 默认jstl标签， classpath有jstl包 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
+
+</beans>

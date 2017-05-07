@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<!-- bean definitions here -->
+
+	<!-- 配置handler -->
+	<bean name="/queryItems.do" class="com.hz.ssm.controller.ItemsController1" />
+	<!-- 处理器映射器 将bean的bean的name作为url查找，需要在配置Handler时制定beanname(url) -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<!-- 处理器适配器 实现HandlerAdapter接口 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- 视图解析器 默认jstl标签， classpath有jstl包 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
+
+</beans>
